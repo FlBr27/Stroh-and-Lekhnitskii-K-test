@@ -1,0 +1,1 @@
+# Stroh-and-Lekhnitskii-K-test
