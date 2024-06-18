@@ -18,7 +18,7 @@ The script reads the (fully relaxed) simulation cell with the GB from the _corr_
 
 In line $146$ and $158$ the _displace_atoms_ command is called using the _gbcrack_ style. This style requires the specification of $67$ input parameters (mostly real and imaginary parts of matrices and vectors). However, in general, only the stress intensity factors $K_{I}$, $K_{II}$, and $K_{III}$ as well as the coordinates of the (initial) crack tip position $x_{tip}$ and $y_{tip}$ have to be provided by the user. The remaining parameters can be calculated with the Python script _InpGen_Stroh6.py_ in the _Python_scripts_ folder and imported in LAMMPS using the _include_ command. This is shown in line $103$ in _Stroh_K_Test.in_ with the _GB_S9_12-2_223_Stroh6_ parameter file. More information on the input parameters of the _gbcrack_ style can be found in the _how_to_gbcrack.txt_ file, also contained in the _Stroh_example_ folder.
 
-Note: To simulate a different GB (material, character, orientation, ...) a new simulation cell restart file and a new input parameter file are required. 
+**Note:** To simulate a different GB (material, character, orientation, ...) a new simulation cell restart file and a new input parameter file are required. 
 
 When executed with LAMMPS, _Stroh_K_Test.in_ produces an output (dump) file for each loading step that can be inspected e.g. in OVITO. If the script was run correctly, one should see brittle crack extension of the $\Sigma 9 \ (12\overline{2}) \ 152.7° [223]$ GB with a first larger crack length increase from loading step $9$ to $10$. 
 
@@ -30,8 +30,8 @@ The script reads the (fully relaxed) simulation cell with the GB from the _corr_
 
 In line $147$ and $151$ the _displace_atoms_ command is called using the _crackaniso_ style. This style requires the specification of $15$ input parameters (mostly real and imaginary parts of scalars). However, in general, only the stress intensity factor $K_{I}$ and the coordinates of the (initial) crack tip position $x_{tip}$ and $y_{tip}$ have to be provided by the user, since the _crackaniso_ style is limited to mode I loading only. The remaining parameters can be calculated with the Python script _InpGen_Lekh4.py_ in the _Python_scripts_ folder and imported in LAMMPS using the _include_ command. This is shown in line $104$ in _Lekh_K_Test.in_ with the _GB_S3_111_1-10_Lekh4_ parameter file. More information regarding the input parameters of the _crackaniso_ style can be found in the _how_to_crackaniso.txt_ file, also contained in the _Lekhnitskii_example_ folder.
 
-Note 1: To simulate a different GB (material, character, orientation, ...) a new simulation cell restart file and a new input parameter file are required. 
-Note 2: When providing stress intensity values for the _crackaniso_ style, they have to be specified in units of $[100 \ \text{MPa}\sqrt{m}]$ contrary to the _gbcrack_ style where stress intensities are specified in units of $[\text{MPa}\sqrt{m}]$. 
+**Note 1:** To simulate a different GB (material, character, orientation, ...) a new simulation cell restart file and a new input parameter file are required. \
+**Note 2:** When providing stress intensity values for the _crackaniso_ style, they have to be specified in units of $[100 \ \text{MPa}\sqrt{m}]$ contrary to the _gbcrack_ style where stress intensities are specified in units of $[\text{MPa}\sqrt{m}]$. 
 
 When executed with LAMMPS, _Lekh_K_Test.in_ produces an output (dump) file for each loading step that can be inspected e.g. in OVITO. If the script was run correctly, one should see twinning fault emission from the crack tip that starts at load step $16$.
 
