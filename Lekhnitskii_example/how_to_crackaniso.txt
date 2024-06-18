@@ -1,0 +1,31 @@
+A guideline on how to use the gbcrack style of the displace_atoms LAMMPS command
+--- Florian Brunner (f.brunner@rug.nl) ---
+
+#### Input parameters in required order:
+# Input parameters to be specified in LAMMPS:
+K ... stress intensity factor for mode I loading in [100*MPa*sqrt(m)] MIND THE UNITS!
+xtip, ytip ... (Cartesian) coordinates of the crack tip in [A]
+
+# Input parameters that are generate by the "InpGen_Lekh4.py" Python script:
+
+s1_real, s1_imag, s2_real, s2_imag ... real and imaginary part of the two roots of the characteristic 4th-order polynomial with Im(s) > 0
+p1_real, p1_imag, p2_real, p2_imag, q1_real, q1_imag, q2_real, q2_imag ... real and imaginary part of the 4 auxiliary quantities, defined within
+the 4th-order Lekhnitskii formalism, which are derived from the elastic compliance matrix 
+
+# Parameter generation:
+The Python script "InpGen_Stroh6.py" should be used to generate all material-related imput parameters. It exports them in a format that can be 
+conveniently import to LAMMPS via the "include" command.
+
+### Example LAMMPS command:
+The below command is an example that can be directly copied & pasted into LAMMPS since the variables are defined as in the output script generated 
+by "InpGen_Lekh4.py".
+
+#------------------------------------------------------------------------------------------
+# displace upper grain
+displace_atoms upperK crackaniso ${K} ${s11_real} ${s11_imag} ${s12_real} ${s12_imag} ${p11_real} &
+${p11_imag} ${p12_real} ${p12_imag} ${q11_real} ${q11_imag} ${q12_real} ${q12_imag} ${xtip} ${ytip}
+
+# displace lower grain
+displace_atoms lowerK crackaniso ${K} ${s21_real} ${s21_imag} ${s22_real} ${s22_imag} ${p21_real} &
+${p21_imag} ${p22_real} ${p22_imag} ${q21_real} ${q21_imag} ${q22_real} ${q22_imag} ${xtip} ${ytip}
+#------------------------------------------------------------------------------------------
