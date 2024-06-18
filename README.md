@@ -12,5 +12,5 @@ To enable the use of the _crackaniso_ and _gbcrack_ style of the _displace_atoms
 
 ## Stroh K-test
 
-The LAMMPS script _Stroh_K_Test.in_ in the _Stroh_example_ folder gives an example on how to run K-test simulations of GB configurations in LAMMPS, using the 6th-order Stroh formalism. In this script, a $\Sigma 3 \, (111) \, 109.5° \, [1\overline{1}0]$
+The LAMMPS script _Stroh_K_Test.in_ in the _Stroh_example_ folder gives an example on how to run K-test simulations of GB configurations in LAMMPS, using the 6th-order Stroh formalism. In this script, a $\Sigma 3  (111)  109.5°  [1\overline{1}0]$
 
