@@ -40,5 +40,5 @@ When executed with LAMMPS, _Lekh_K_Test.in_ produces an output (dump) file for e
 Both the Lekhnitskii and Stroh formalism can be used for K-tests in single crystals as well. To this end, the crystal orientation is simply selected as being the same for the two interfacing grains. However, also in this case, care must be taken regarding the underlying symmetry requirements of both approaches: If a single crystal is to be simulated that does not exhibit monoclinic material symmetry with respect to the out-of-plane direction, the 6th-order Stroh formalism has to be used. Otherwise, the 4th-order Lekhnitskii formalism can be used too.      
 
 # Concluding Remarks
-If you find any bugs in the scripts of this repository or have suggestions for improvements or extensions, please feel free to contact me:
+If you find any bugs in the scripts of this repository or have suggestions for improvements or extensions, please feel free to contact me: \
 Florian Brunner (f.brunner@rug.nl)
