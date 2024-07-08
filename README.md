@@ -41,7 +41,7 @@ Both the Lekhnitskii and Stroh formalism can be used for K-tests in single cryst
 
 # Concluding Remarks
 The  _crackaniso_ style of the _displace_atoms_ LAMMPS command used in this repository is based on an earlier version by Predrag Andric (SKF) that was updated by Lei Zhang (Univerity of Groningen). Further details on the theory behind the 4th-order Lekhnitskii formalism and it's application to fracture simulations are discussed in detail in: \
-P Andric and W A Curtin (2019) Modelling Simul. Mater. Sci. Eng. 27, 013001; DOI: https://doi.org/10.1088/1361-651X/aae40c 
+P Andric and W A Curtin (2019) Modelling Simul. Mater. Sci. Eng. 27, 013001; DOI: https://doi.org/10.1088/1361-651X/aae40c \
 Please also refer to this article when using the provided 4th-order Lekhnitskii approach.
 
 If you find any bugs in the scripts of this repository or have suggestions for improvements or extensions, please feel free to contact me: \
