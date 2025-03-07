@@ -1,4 +1,4 @@
-A guideline on how to use the gbcrack style of the displace_atoms LAMMPS command
+A guideline on how to use the crackaniso style of the displace_atoms LAMMPS command
 --- Florian Brunner (f.brunner@rug.nl) ---
 
 #### Input parameters in required order:
@@ -13,7 +13,7 @@ p1_real, p1_imag, p2_real, p2_imag, q1_real, q1_imag, q2_real, q2_imag ... real 
 the 4th-order Lekhnitskii formalism, which are derived from the elastic compliance matrix 
 
 # Parameter generation:
-The Python script "InpGen_Stroh6.py" should be used to generate all material-related imput parameters. It exports them in a format that can be 
+The Python script "InpGen_Lekh4.py" should be used to generate all material-related input parameters. It exports them in a format that can be 
 conveniently import to LAMMPS via the "include" command.
 
 ### Example LAMMPS command:
