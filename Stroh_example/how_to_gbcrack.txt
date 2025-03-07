@@ -24,7 +24,7 @@ Phi = I + 2*atanh(beta)/(pi*beta^3)*S_breve^3; where I is the unity matrix and a
 Stroh formalism.
 
 # Parameter generation:
-The Python script "InpGen_Stroh6.py" should be used to generate all material-related imput parameters. It exports them in a format that can be 
+The Python script "InpGen_Stroh6.py" should be used to generate all material-related input parameters. It exports them in a format that can be 
 conveniently import to LAMMPS via the "include" command.
 
 ### Example LAMMPS command:
