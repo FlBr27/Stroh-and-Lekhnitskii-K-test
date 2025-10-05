@@ -1,8 +1,8 @@
 ## Comparison of a single crystal K-test with theory
 
-The purpose of this example is to demonstrate how the predictions of a K-test simulation can be compared to analytical theories. Two of the most important theories in this regard are, on the one hand, the theory of brittle crack extension, devised by [Griffith](Phil. Trans. Royal Soc. A 221, pp. 163–198 (1920)). On the other hand, 
-[Rice](J. Mech. Phys. Solids Vol. 40, No. 2, pp. 239-271 (1992)) proposed a theory for dislocation emission from a crack tip that was subsequently extended to anisotropic cases
-by [Sun & Beltz](J. Mech. Phys. Solids Vol. 42, No. 12, pp. 1905-1932 (1994)). These two theories can be considered to validate the predictions of K-tests, as exemplified hereafter.
+The purpose of this example is to demonstrate how the predictions of a K-test simulation can be compared to analytical theories. Two of the most important theories in this regard are, on the one hand, the theory of brittle crack extension, devised by Griffith (Phil. Trans. Royal Soc. A 221, pp. 163–198 (1920)). On the other hand, 
+Rice (J. Mech. Phys. Solids Vol. 40, No. 2, pp. 239-271 (1992)) proposed a theory for dislocation emission from a crack tip that was subsequently extended to anisotropic cases
+by Sun & Beltz (J. Mech. Phys. Solids Vol. 42, No. 12, pp. 1905-1932 (1994)). These two theories can be considered to validate the predictions of K-tests, as exemplified hereafter.
 
 The LAMMPS script _Stroh_K_Test.in_ is used to perform a K-test simulation of a single crystal configuration in LAMMPS, using the 6th-order Stroh formalism. 
 In this script, a $(111) \ [11\overline{2}]$ Fe single crystal is considered and loaded in mode I (pure tension) in $20$ steps with a stress intensity level 
@@ -20,7 +20,7 @@ inclined to the crack plane (x-z-plane) by an angle $\theta = \pm 90°$, and to 
 
 Comparing the theoretical predictions, brittle fracture would be the expected outcome of the conducted K-test since $K_{G} < K_{Ie}$. However, dislocation emission is observed
 in the slip system predicted by the Rice analysis. This discrepancy is most likely the result of the used interatomic potential, which is a (simple)
-EAM model. This issue was discussed in detail by e.g. [Möller & Bitzek](Modelling Simul. Mater. Sci. Eng. 22 (2014) 045002).
+EAM model. This issue was discussed in detail by e.g. Möller & Bitzek (Modelling Simul. Mater. Sci. Eng. 22 (2014) 045002).
 
 
 
