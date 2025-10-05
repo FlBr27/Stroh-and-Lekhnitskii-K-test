@@ -4,7 +4,7 @@ This repository contains all necessary files to set up and run K-tests on genera
 
 The Stroh as well as the Lekhnitskii approach are used to compute displacement boundary conditions for the atomic simulation cell that correspond to a crack along a GB. To impose these boundary conditions in LAMMPS, we added two styles to the _displace_atoms_ LAMMPS command. The _crackaniso_ style implements the boundary conditions corresponding to the 4th-order Lekhnitskii formalism, while the _gbcrack_ style implements the 6th-order Stroh formalism. Two examples illustrating the use of the Stroh and Lekhnitskii formalism for K-tests of GBs are included in this repository.
 
-Furthermore, a third example is provided, in which the results of a K-test are compared to the analytical predictions for brittle crack extensions (Griffith theory) and dislocation emission (Rice theory) within the framework of the STH formalism.  
+Additionally, an example is provided that illustrates the comparison of K-test results with analytical predictions for brittle crack extensions (Griffith theory) and dislocation emission (Rice theory) within the framework of the STH formalism.   
 
 # Installation
 
