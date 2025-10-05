@@ -1,0 +1,121 @@
+# Input parameters for the 6th order Stroh K-test 
+
+variable a equal 10000.000 
+
+### Parameters region 1
+# p1_j
+variable p11_re equal -0.415121497 
+variable p11_im equal 1.408214476 
+variable p12_re equal 0.415121497 
+variable p12_im equal 1.408214476 
+variable p13_re equal -0.000000000 
+variable p13_im equal 0.473812268 
+# A1-matrix
+variable a111_re equal -0.022022531 
+variable a111_im equal 0.045993591 
+variable a112_re equal 0.045993591 
+variable a112_im equal -0.022022531 
+variable a113_re equal -0.009880992 
+variable a113_im equal -0.009880992 
+variable a121_re equal -0.020593350 
+variable a121_im equal 0.000520839 
+variable a122_re equal -0.000520839 
+variable a122_im equal 0.020593350 
+variable a123_re equal 0.043473612 
+variable a123_im equal -0.043473612 
+variable a131_re equal 0.049565341 
+variable a131_im equal -0.028323073 
+variable a132_re equal 0.028323073 
+variable a132_im equal -0.049565341 
+variable a133_re equal 0.021366842 
+variable a133_im equal -0.021366842 
+# B1_inv-matrix
+variable b111_re equal -0.044798691 
+variable b111_im equal 0.118178510 
+variable b112_re equal -0.074150765 
+variable b112_im equal -0.011454223 
+variable b113_re equal 0.102720491 
+variable b113_im equal -0.055285335 
+variable b121_re equal 0.118178510 
+variable b121_im equal -0.044798691 
+variable b122_re equal 0.011454223 
+variable b122_im equal 0.074150765 
+variable b123_re equal 0.055285335 
+variable b123_im equal -0.102720491 
+variable b131_re equal -0.046759631 
+variable b131_im equal -0.046759631 
+variable b132_re equal 0.099990100 
+variable b132_im equal -0.099990100 
+variable b133_re equal 0.041313307 
+variable b133_im equal -0.041313307 
+
+### Parameters region 2
+# p2_j
+variable p21_re equal -0.415121497 
+variable p21_im equal 1.408214476 
+variable p22_re equal 0.415121497 
+variable p22_im equal 1.408214476 
+variable p23_re equal -0.000000000 
+variable p23_im equal 0.473812268 
+# A2-matrix
+variable a211_re equal -0.022022531 
+variable a211_im equal 0.045993591 
+variable a212_re equal 0.045993591 
+variable a212_im equal -0.022022531 
+variable a213_re equal -0.009880992 
+variable a213_im equal -0.009880992 
+variable a221_re equal -0.020593350 
+variable a221_im equal 0.000520839 
+variable a222_re equal -0.000520839 
+variable a222_im equal 0.020593350 
+variable a223_re equal 0.043473612 
+variable a223_im equal -0.043473612 
+variable a231_re equal 0.049565341 
+variable a231_im equal -0.028323073 
+variable a232_re equal 0.028323073 
+variable a232_im equal -0.049565341 
+variable a233_re equal 0.021366842 
+variable a233_im equal -0.021366842 
+# B2_inv-matrix
+variable b211_re equal -0.044798691 
+variable b211_im equal 0.118178510 
+variable b212_re equal -0.074150765 
+variable b212_im equal -0.011454223 
+variable b213_re equal 0.102720491 
+variable b213_im equal -0.055285335 
+variable b221_re equal 0.118178510 
+variable b221_im equal -0.044798691 
+variable b222_re equal 0.011454223 
+variable b222_im equal 0.074150765 
+variable b223_re equal 0.055285335 
+variable b223_im equal -0.102720491 
+variable b231_re equal -0.046759631 
+variable b231_im equal -0.046759631 
+variable b232_re equal 0.099990100 
+variable b232_im equal -0.099990100 
+variable b233_re equal 0.041313307 
+variable b233_im equal -0.041313307 
+
+# Interfacial parameters
+# S_breve-matrix
+variable s_11 equal 0.000000000 
+variable s_12 equal 0.000000000 
+variable s_13 equal 0.000000000 
+variable s_21 equal 0.000000000 
+variable s_22 equal 0.000000000 
+variable s_23 equal 0.000000000 
+variable s_31 equal 0.000000000 
+variable s_32 equal 0.000000000 
+variable s_33 equal 0.000000000 
+# Phi_inv-matrix
+variable Phi_11 equal 1.000000000 
+variable Phi_12 equal 0.000000000 
+variable Phi_13 equal 0.000000000 
+variable Phi_21 equal 0.000000000 
+variable Phi_22 equal 1.000000000 
+variable Phi_23 equal 0.000000000 
+variable Phi_31 equal 0.000000000 
+variable Phi_32 equal 0.000000000 
+variable Phi_33 equal 1.000000000 
+
+variable E_22 equal 0.016598683 
