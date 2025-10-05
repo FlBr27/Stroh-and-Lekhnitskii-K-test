@@ -15,7 +15,7 @@ one should see the emission of an edge dislocation at an angle $\theta = 90°$ f
 
 To assess whether this prediction is reasonable or not, the Griffith value $K_{G}$ for brittle crack extension is computed using the Jupyter Notebook script _Griffith_compute.ipynb_ in the _python_scripts_ folder. Executing this script for the here treated case yields $K_{G} = 0.981\ \text{MPa}\sqrt{m}$. On the other hand, 
 the relevant slip systems for dislocation emission and their corresponding Rice value $K_{Ie}$ are determined via the _Rice_compute.ipynb_ Jupyter Notebook script, 
-also to be found in the  _python_scripts_ folder. By executing the script, one finds that the most favourable slip systems in this case are the ${110}\langle111\rangle$ systems, which are
+also to be found in the  _python_scripts_ folder. By executing the script, one finds that the most favourable slip systems in this case are the $\\{110\\}\langle111\rangle$ systems, which are
 inclined to the crack plane (x-z-plane) by an angle $\theta = \pm 90°$, and to the crack front plane (x-y-plane) by an angle $\phi = 0°$.
 
 Comparing the theoretical predictions, brittle fracture would be the expected outcome of the conducted K-test since $K_{G} < K_{Ie}$. However, dislocation emission is observed
