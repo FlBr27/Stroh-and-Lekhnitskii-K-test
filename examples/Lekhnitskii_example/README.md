@@ -2,7 +2,7 @@
 
 The LAMMPS script _Lekh_K_Test.in_ illustrates how to run K-test simulations of GB configurations in LAMMPS, using the 4th-order Lekhnitskii formalism. 
 In this script, a $\Sigma 3 \ (111) \ 109.5° [1\overline{1}0]$ Fe GB is used as an example and loaded in mode I (pure tension) in $20$ steps with a stress intensity 
-level ranging from $0.80$ to $1.20 \ \text{MPa}\sqrt{m}$. Thereby, the _Fe_mm.eam.fs_ interatomic potential used for Fe, since it is by default included in the _potentials_ 
+level ranging from $0.80$ to $1.20 \ \text{MPa}\sqrt{m}$. Thereby, the _Fe_mm.eam.fs_ interatomic potential is used for Fe, since it is by default included in the _potentials_ 
 folder of LAMMPS. It also has to be noted that this GB has monoclinic material symmetry with respect to the out-of-plane direction, and therefore, the 4th-order Lekhnitskii 
 formalism can be used.
 
