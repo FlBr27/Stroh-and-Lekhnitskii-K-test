@@ -1,0 +1,58 @@
+A guideline on how to use the gbcrack style of the displace_atoms LAMMPS command
+--- Florian Brunner (f.brunner@rug.nl) ---
+
+#### Input parameters in required order:
+# Input parameters to be specified in LAMMPS:
+K1, K2, K3 ... stress intensity factors for mode I, II and II loading respectively in [MPa*sqrt(m)]
+xtip, ytip ... (Cartesian) coordinates of the crack tip in [A]
+
+# Input parameters that are generate by the "InpGen_Stroh6.py" Python script:
+a ... (initial) crack length in [A]
+reg ... region flag; either 1 = upper grain or 2 = lower grain;
+p1_re, p1_im, p2_re, p2_im, p3_re, p3_im ... real and imaginary part of the 3 Stroh eigenvalues respectively
+
+a11_re, a11_im, a12_re, a12_im, a13_re, a23_im, a21_re, a21_im, a22_re, a22_im, a23_re, a23_im, 
+a31_re, a31_im, a32_re, a32_im, a33_re, a33_im  ... real and imaginary part of the elements of the A-Matrix in the Stroh formalism in [1/GPa]
+
+b11_re, b11_im, b12_re, b12_im, b13_re, b23_im, b21_re, b21_im, b22_re, b22_im, b23_re, b23_im, 
+b31_re, b31_im, b32_re, b32_im, b33_re, b33_im  ... real and imaginary part of the elements of the INVERSE of the B-Matrix in the Stroh formalism in [-]
+
+s11, s12, s13, s21, s22, s23, s31, s32, s33 ... elements of the interface matrix S_breve in the Stroh formalism in [-]
+
+Phi11, Phi12, Phi13, Phi21, Phi22, Phi23, Phi31, Phi32, Phi33 ... elements of the INVERSE of the Phi matrix, defined as:
+Phi = I + 2*atanh(beta)/(pi*beta^3)*S_breve^3; where I is the unity matrix and all other quantities have the usual meaning as in the context of the 
+Stroh formalism.
+
+# Parameter generation:
+The Python script "InpGen_Stroh6.py" should be used to generate all material-related input parameters. It exports them in a format that can be 
+conveniently import to LAMMPS via the "include" command.
+
+### Example LAMMPS command:
+The below command is an example that can be directly copied & pasted into LAMMPS since the variables are defined as in the output script generated 
+by "InpGen_Stroh6.py".
+
+#------------------------------------------------------------------------------------------
+# upper grain
+displace_atoms upper gbcrack ${K_I} ${K_II} ${K_III} ${xtip} ${ytip} ${a} 1 &
+${p11_re} ${p11_im} ${p12_re} ${p12_im} ${p13_re} ${p13_im} &
+${a111_re} ${a111_im} ${a112_re} ${a112_im} ${a113_re} ${a113_im} &
+${a121_re} ${a121_im} ${a122_re} ${a122_im} ${a123_re} ${a123_im} &
+${a131_re} ${a131_im} ${a132_re} ${a132_im} ${a133_re} ${a133_im} &
+${b111_re} ${b111_im} ${b112_re} ${b112_im} ${b113_re} ${b113_im} &
+${b121_re} ${b121_im} ${b122_re} ${b122_im} ${b123_re} ${b123_im} &
+${b131_re} ${b131_im} ${b132_re} ${b132_im} ${b133_re} ${b133_im} &
+${s_11} ${s_12} ${s_13} ${s_21} ${s_22} ${s_23} ${s_31} ${s_32} ${s_33} &
+${Phi_11} ${Phi_12} ${Phi_13} ${Phi_21} ${Phi_22} ${Phi_23} ${Phi_31} ${Phi_32} ${Phi_33}
+
+# lower grain
+displace_atoms lower gbcrack ${K_I} ${K_II} ${K_III} ${xtip} ${ytip} ${a} 2 &
+${p21_re} ${p21_im} ${p22_re} ${p22_im} ${p23_re} ${p23_im} &
+${a211_re} ${a211_im} ${a212_re} ${a212_im} ${a213_re} ${a213_im} &
+${a221_re} ${a221_im} ${a222_re} ${a222_im} ${a223_re} ${a223_im} &
+${a231_re} ${a231_im} ${a232_re} ${a232_im} ${a233_re} ${a233_im} &
+${b211_re} ${b211_im} ${b212_re} ${b212_im} ${b213_re} ${b213_im} &
+${b221_re} ${b221_im} ${b222_re} ${b222_im} ${b223_re} ${b223_im} &
+${b231_re} ${b231_im} ${b232_re} ${b232_im} ${b233_re} ${b233_im} &
+${s_11} ${s_12} ${s_13} ${s_21} ${s_22} ${s_23} ${s_31} ${s_32} ${s_33} &
+${Phi_11} ${Phi_12} ${Phi_13} ${Phi_21} ${Phi_22} ${Phi_23} ${Phi_31} ${Phi_32} ${Phi_33}
+#------------------------------------------------------------------------------------------

@@ -1,0 +1,203 @@
+### Lekhnitskii K-test script ###
+# Florian Brunner; f.brunner@rug.nl 
+
+clear
+units 			metal 
+dimension 		3 
+boundary 		p p p 
+atom_style 		atomic 
+
+# ------------------------- Required Input Parameters --------------------------------
+
+# Metal to be simulated:
+variable 		mettype string "Fe" # type of metal 
+variable 		lattype string "bcc" # crystal structure
+variable 		atom_mass equal 55.845 # atomic mass [g/mol]; required for e.g. ACE potentials
+variable 		latparam equal 2.855 # lattice parameter in [A]
+variable 		e_surf1 equal 124.720 # surface energy of surface/grain 1 [meV/A^2]
+variable 		e_surf2 equal 124.720 # surface energy of surface/grain 2 [meV/A^2]
+variable 		e_gb equal 80.893 # grain boundary energy [meV/A^2]
+
+# Interatomic potential:
+variable 		pairsty string "eam/fs"
+variable 		pot_name string "Fe_mm.eam.fs"
+variable 		pot_path string "../../../potentials" # relative path of the LAMMPS "potentials" folder
+
+variable 		dmax equal 0.05 # maximum distance an atom can move during a minimization step; can be useful e.g. for ACE potentials
+
+# ------------------------------ Load Structure --------------------------------------- 
+
+# Load optimum GB structure
+read_restart 	corr_optimum_gb_S3.restart
+
+change_box 		all boundary s s p # impose the actual boundary conditions
+
+variable 		xtip equal 0.0 # x-coordinate of the crack tip in [A]
+variable 		ytip equal 0.0 # y-coordinate of the crack tip in [A]
+
+variable 		rad equal 220.0 # cell radius in [A] including boundary region
+variable 		t_bc equal 20.0 # thickness of boundary layer in [A]
+variable 		rad_inner equal "v_rad - v_t_bc"
+
+# ---------------------------------- Carve out the clyinder -------------------------------------------
+
+region          Cyl_reg cylinder z ${xtip} ${ytip} ${rad} INF INF units box
+group           Cyl region Cyl_reg
+group			to_delete subtract all Cyl
+delete_atoms	group to_delete
+
+# Define quantities for later use 
+
+variable        tmp equal "lz"
+variable        LZ equal ${tmp}
+
+variable 		PI equal 3.14159265359
+
+variable        tmp equal "atoms"
+variable        N equal ${tmp}
+
+variable        V equal (${rad}*${rad}*${PI}*${LZ})
+variable 		tmp delete	
+
+region 			innerR cylinder z ${xtip} ${ytip} ${rad_inner} INF INF units box
+group           inner region innerR
+group 			bcg subtract all inner
+set 			group bcg type 3
+
+# ---------------------------------- Establish configuration to start from -----------------------------
+
+pair_style 		${pairsty}
+pair_coeff 		* * ${pot_path}/${pot_name} ${mettype} ${mettype} ${mettype}
+
+neighbor 		2.0 bin
+neigh_modify 	delay 10 check yes
+mass            * ${atom_mass}
+
+write_restart	conf_tmp.restart
+
+################################################################################################
+# 							Start of simulation loop
+################################################################################################
+
+variable 		K_init equal 0.80 # initial stress intensity factor [MPa*sqrt(m)] as determined from "Stroh_find_start.in"
+variable 		delta_K equal 0.02 # stress intensity increment per step [MPa*sqrt(m)] 
+variable 		n_kstp equal 20 # loading steps
+variable 		convf2 equal 100 # conversion factor; since the crackaniso style expects stress intensities to be specified in [100*MPa*sqrt(m)]
+
+variable 		outp_fold string "Lekh_k_test_dumps"
+shell 			mkdir ${outp_fold}
+
+clear
+read_restart 	conf_tmp.restart # start the K-test from global reference configuration
+
+# ------------------------------- Define Interatomic Potential --------------------------------
+
+pair_style 		${pairsty}
+pair_coeff 		* * ${pot_path}/${pot_name} ${mettype} ${mettype} ${mettype}
+
+neighbor 		2.0 bin
+neigh_modify 	delay 10 check yes
+mass            * ${atom_mass}
+
+# ---------------------------------- Define loading -------------------------------------------
+
+include 		./GB_S3_111_1-10_Lekh4
+
+# ------------------------- Stress calculations ----------------------------------
+
+compute 		stress all stress/atom NULL # computes the stress tensor per atom, whereas the temperature is left unspecified (NULL)
+
+variable		sigma_xx atom c_stress[1]/(${V}/${N}*10) # factor 10 for conversion of bar to MPa
+variable		sigma_yy atom c_stress[2]/(${V}/${N}*10)
+variable		sigma_zz atom c_stress[3]/(${V}/${N}*10)
+variable		sigma_xy atom c_stress[4]/(${V}/${N}*10)
+variable		sigma_xz atom c_stress[5]/(${V}/${N}*10)
+variable		sigma_yz atom c_stress[6]/(${V}/${N}*10)
+
+# ------------------------------- Define Required Computes -------------------------
+
+compute 		pa_eng all pe/atom # per atom potential energy
+compute 		eatoms all reduce sum c_pa_eng
+compute			disp all displace/atom
+
+label           kloop_start
+variable        k loop 0 ${n_kstp}
+
+	print "###################"
+	print "Step ${k}/${n_kstp}"
+	print "###################"
+	
+	# ----------------------------------- Define Groups for K-Test ----------------------
+
+	region 		upperKR block INF INF 0.0 INF INF INF units box
+	group		upperK region upperKR
+	set 		group upperK type 1
+
+	region 		lowerKR block INF INF INF 0.0 INF INF units box
+	group		lowerK region lowerKR
+	set 		group lowerK type 2
+
+	# apply K_init in the first step and only the increments subsequently
+	if "$k == 0" then &
+		"variable K equal ${convf2}*${K_init}" &
+	else &
+		"variable K equal ${convf2}*${delta_K}"
+
+	# displace upper grain
+	displace_atoms upperK crackaniso ${K} ${s11_real} ${s11_imag} ${s12_real} ${s12_imag} ${p11_real} &
+	${p11_imag} ${p12_real} ${p12_imag} ${q11_real} ${q11_imag} ${q12_real} ${q12_imag} ${xtip} ${ytip}
+
+	# displace lower grain
+	displace_atoms lowerK crackaniso ${K} ${s21_real} ${s21_imag} ${s22_real} ${s22_imag} ${p21_real} &
+	${p21_imag} ${p22_real} ${p22_imag} ${q21_real} ${q21_imag} ${q22_real} ${q22_imag} ${xtip} ${ytip}
+
+	# ----------------------------------- First Minimization -----------------------------------------
+
+	reset_timestep 	0
+	thermo 			100
+	fix             1 bcg setforce 0.0 0.0 0.0 # freeze the atoms in the boundary region
+
+	thermo_style 	custom step pe lx ly lz press pxx pyy pzz c_eatoms
+	min_style 		cg
+	min_modify		dmax ${dmax}
+	minimize 		1.0e-20 1.0e-20 5000 5000
+
+	# ----------------------------------- Second Minimization -----------------------------------------
+	# Now, "shake things up" with fire
+
+	reset_timestep 	0
+	min_style 		fire
+	min_modify		dmax ${dmax}
+	minimize 		1.0e-12 1.0e-12 1000 1000
+
+	# ----------------------------------- Third Minimization -----------------------------------------
+
+	reset_timestep 	0
+	min_style 		cg
+	min_modify		dmax ${dmax}
+	minimize 		1.0e-25 1.0e-25 100000 100000
+
+	unfix 			1
+
+	#-----------------------------------------------------------------------------#
+	
+	shell 			cd ${outp_fold}
+	dump 			3 all custom 1 step_$k.dump  id type x y z fx fy fz c_disp[1] c_disp[2] c_disp[3] &
+					v_sigma_xx v_sigma_yy v_sigma_zz v_sigma_xy v_sigma_xz v_sigma_yz c_pa_eng
+	run 0
+	undump 3
+	shell 			cd ..
+
+
+	### cleaning up ###
+	group 			lowerK delete
+	region			lowerKR delete
+	group			upperK delete
+	region			upperKR delete
+
+	next		k
+	jump		SELF kloop_start
+
+shell 			"rm conf_tmp.restart"
+
+print			'All Done!'
