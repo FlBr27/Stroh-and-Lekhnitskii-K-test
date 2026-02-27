@@ -29,7 +29,6 @@ import numpy as np
 from numpy import linalg as la
 import math
 import warnings
-from cxroots import Rectangle
 
 ###############################################################################
 def is_positive_definite(M):
@@ -582,7 +581,7 @@ def Stroh6_Coeff(p1, A1, B1, p2, A2, B2, a):
     | p1, p2: Stroh eigenvalues of the corresponding region [-];
       3x1 float arrays;
     | A1, B1, A2, B2: Stroh matrices of the corresponding region;
-      A_i [1/GPa], B_i [-]; 3x3 float arrays;
+      A_i [1/sqrt(GPa)], B_i [sqrt(GPa)]; 3x3 float arrays;
     | a: crack length [A]; float;
 
     Returns
@@ -1019,5 +1018,6 @@ def slip_sys_bcc():
          [[-3, 2, 1], [1, 1, 1]]])
     
     return slip_sys_bcc
+
 
 ###############################################################################
