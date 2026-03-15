@@ -690,11 +690,11 @@ void DisplaceAtoms::command(int narg, char **arg)
     S_brev3 = cMxM(S_brev2, S_brev);
 
     std::complex<double> tr_Sbrev2 = S_brev2.cmat[0][0] + S_brev2.cmat[1][1] + S_brev2.cmat[2][2];
+    std::complex<double> beta = sqrt(-0.5*tr_Sbrev2);
 
-    std::complex<double> beta = 1.0e-12; // to circumvent division-by-zero-infinities
-
-    if (std::real(tr_Sbrev2) > 1.0e-12) {
-      beta = sqrt(-0.5*tr_Sbrev2);
+    // to circumvent division-by-zero-infinities
+    if (std::abs(beta) < 1.0e-12) {
+      beta = 1.0e-12;
     } 
 
     std::complex<double> gamma = 1.0/pi*atanh(beta); 
